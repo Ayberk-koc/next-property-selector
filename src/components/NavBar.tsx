@@ -8,36 +8,65 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export default function NavBar() {
+type PossibleStays = "All" | "Norway" | "Finland" | "Sweden" | "Switzerland";
+type PropertyType = "Appartment" | "House" | "Rent";
+
+export default function NavBar({
+  changeCountry,
+  toggleSuperhost,
+  setPropertyType,
+}: {
+  changeCountry: (country: PossibleStays) => void;
+  toggleSuperhost: () => void;
+  setPropertyType: (property: PropertyType) => void;
+}) {
   return (
     <div className="flex flex-col lg:flex-row items-center bg-customBlack/95 rounded-2xl border border-customGray backdrop-blur-[4px] py-8 px-10 space-y-6 lg:space-y-0 lg:justify-between w-full">
       <div className="flex shrink-0 flex-wrap gap-3 justify-center">
-        <button className="px-4 py-2 rounded-lg hover:bg-customGray text-md-regular text-customWhite">
+        <button
+          onClick={() => changeCountry("All")}
+          className="px-4 py-2 rounded-lg hover:bg-customGray text-md-regular text-customWhite cursor-pointer"
+        >
           All Stays
         </button>
-        <button className="px-4 py-2 rounded-lg hover:bg-customGray text-md-regular text-customWhite">
+        <button
+          onClick={() => changeCountry("Norway")}
+          className="px-4 py-2 rounded-lg hover:bg-customGray text-md-regular text-customWhite cursor-pointer"
+        >
           Norway
         </button>
-        <button className="px-4 py-2 rounded-lg hover:bg-customGray text-md-regular text-customWhite">
+        <button
+          onClick={() => changeCountry("Finland")}
+          className="px-4 py-2 rounded-lg hover:bg-customGray text-md-regular text-customWhite cursor-pointer"
+        >
           Finland
         </button>
-        <button className="px-4 py-2 rounded-lg hover:bg-customGray text-md-regular text-customWhite">
+        <button
+          onClick={() => changeCountry("Sweden")}
+          className="px-4 py-2 rounded-lg hover:bg-customGray text-md-regular text-customWhite cursor-pointer"
+        >
           Sweden
         </button>
-        <button className="px-4 py-2 rounded-lg hover:bg-customGray text-md-regular text-customWhite">
+        <button
+          onClick={() => changeCountry("Switzerland")}
+          className="px-4 py-2 rounded-lg hover:bg-customGray text-md-regular text-customWhite cursor-pointer"
+        >
           Switzerland
         </button>
       </div>
       <div className="flex flex-col lg:flex-row gap-5 items-center">
         <div className="flex flex-col md:flex-row gap-5 items-center">
           <div className="flex gap-2">
-            <Switch className="cursor-pointer"></Switch>
+            <Switch
+              className="cursor-pointer data-[state=checked]:bg-red-800 data-[state=unchecked]:bg-gray-400"
+              onClick={toggleSuperhost}
+            ></Switch>
             <span className="text-sm-regular text-customWhite">Superhost</span>
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger
               asChild
-              className="group data-[state=open]:bg-customOrange "
+              className="group data-[state=open]:bg-customOrange"
             >
               <button className="py-3 px-6 flex gap-2.5 items-center border-2 border-customGray rounded-[12px]">
                 <span className="text-customWhite text-md-regular group-data-[state=open]:text-customBlack">
@@ -58,9 +87,24 @@ export default function NavBar() {
             <DropdownMenuContent>
               <DropdownMenuLabel>Type</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Appartment</DropdownMenuItem>
-              <DropdownMenuItem>House</DropdownMenuItem>
-              <DropdownMenuItem>Rent</DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => setPropertyType("Appartment")}
+                className="cursor-pointer"
+              >
+                Appartment
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => setPropertyType("House")}
+                className="cursor-pointer"
+              >
+                House
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => setPropertyType("Rent")}
+                className="cursor-pointer"
+              >
+                Rent
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

@@ -1,27 +1,27 @@
 import Image from "next/image";
 
-export default function Card() {
+import { Place } from "@/types/places";
+
+export default function Card({ place }: { place: Place }) {
   return (
     <div className="flex flex-col items-center pb-5 w-[357px] rounded-[12px] border border-customGray backdrop-blur-[6px]">
       <div className="relative w-full h-[200px] mb-5 rounded-t-[12px] overflow-hidden">
-        <span className="absolute top-2 left-2 z-10 flex items-center px-3 pb-1.5 py-1 rounded-full bg-customBlack">
-          <span className="text-customWhite text-xs-bold">Superhost ⭐️</span>
-        </span>
+        {place.superhost && (
+          <span className="absolute top-2 left-2 z-10 flex items-center px-3 pb-1.5 py-1 rounded-full bg-customBlack">
+            <span className="text-customWhite text-xs-bold">Superhost ⭐️</span>
+          </span>
+        )}
         <Image
-          src={"/images/test.jpg"}
+          src={place.image}
           alt=""
           fill
           className="object-[0%_65%] object-cover"
         ></Image>
       </div>
       <div className="px-5">
-        <h1 className="text-customWhite mb-2 text-lg-bold">
-          Cabin with Private Sauna
-        </h1>
-        <p className="text-customWhite mb-4 text-md-regular">
-          Getaway from it all at this secluded cabin, tucled awai in the heart
-          of Nordic wilderness. Relax in your own private sauna or take a dip in
-          the nearby lake. With its rustic charm and peacful surroundings.
+        <h1 className="text-customWhite mb-2 text-lg-bold">{place.title}</h1>
+        <p className="text-customWhite mb-4 text-md-regular line-clamp-4">
+          {place.description}
         </p>
         <p className="flex gap-4 items-center mb-4">
           <span className="flex gap-1 items-center">
@@ -47,7 +47,9 @@ export default function Card() {
               />
               <rect x="16" y="5" width="2" height="4" rx="0.5" fill="#4A5567" />
             </svg>
-            <span className="text-customWhite">1 bedroom</span>
+            <span className="text-customWhite">
+              {place.capacity.bedroom} bedroom
+            </span>
           </span>
           <span className="flex gap-1 items-center">
             <svg
@@ -64,13 +66,17 @@ export default function Card() {
                 fillOpacity="0.25"
               />
             </svg>
-            <span className="text-customWhite">2 guests</span>
+            <span className="text-customWhite">
+              {place.capacity.people} guests
+            </span>
           </span>
         </p>
         <hr className="border-customGray mb-5" />
         <div className="flex justify-between w-full items-center">
           <span>
-            <span className="text-customWhite text-2xl-bold">$150</span>
+            <span className="text-customWhite text-2xl-bold">
+              ${place.price}
+            </span>
             <span className="text-customWhite">/night</span>
           </span>
           <span className="flex items-center gap-1">
@@ -88,7 +94,9 @@ export default function Card() {
                 strokeWidth="2"
               />
             </svg>
-            <span className="text-customWhite text-md-bold">4.9</span>
+            <span className="text-customWhite text-md-bold">
+              {place.rating}
+            </span>
           </span>
         </div>
       </div>
