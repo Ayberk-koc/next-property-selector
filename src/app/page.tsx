@@ -11,20 +11,19 @@ import "ldrs/react/Reuleaux.css";
 import { useMemo, useState } from "react";
 
 type PossibleStays = "All" | "Norway" | "Finland" | "Sweden" | "Switzerland";
-type PropertyType = "Appartment" | "House" | "Rent";
+type PropertyType = "All" | "1" | "2";
 
 export default function Home() {
   const [country, setCountry] = useState<PossibleStays>("All");
   const [superhostIsActive, setSuperhostIsActive] = useState<boolean>(false);
-  const [property, setProperty] = useState<PropertyType>();
+  const [property, setProperty] = useState<PropertyType>("All");
 
   const { data, error, isLoading, isError } = useQuery({
-    queryKey: ["todos"],
+    queryKey: ["properties"],
     queryFn: getPlaces,
   });
 
-  console.log(property);
-
+  //mehrere useMemo's wäre besser, aber calculation time eh niedrig -> übersichtlicher.
   const filteredData = useMemo(() => {
     if (!data) return [];
 
@@ -36,11 +35,13 @@ export default function Home() {
       (elem) => !superhostIsActive || elem.superhost
     );
 
-    //in der api sind die types der property nicht eingetragen -> das geht also nicht. So müsste man es aber machen
-    // const filteredByPropertyType = filteredBySuperhost.filter((elem) => !property || elem.propertyType = property)
+    const filteredByPropertyType = filteredBySuperhost.filter(
+      (elem) =>
+        property === "All" || property === elem.capacity.bedroom.toString()
+    );
 
-    return filteredBySuperhost;
-  }, [data, country, superhostIsActive]);
+    return filteredByPropertyType;
+  }, [data, country, superhostIsActive, property]);
 
   function handleChoseCountry(country: PossibleStays) {
     setCountry(country);

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 type PossibleStays = "All" | "Norway" | "Finland" | "Sweden" | "Switzerland";
-type PropertyType = "Appartment" | "House" | "Rent";
+type PropertyType = "All" | "1" | "2";
 
 export default function NavBar({
   changeCountry,
@@ -88,22 +88,22 @@ export default function NavBar({
               <DropdownMenuLabel>Type</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                onClick={() => setPropertyType("Appartment")}
+                onClick={() => setPropertyType("All")}
                 className="cursor-pointer"
               >
-                Appartment
+                All
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => setPropertyType("House")}
+                onClick={() => setPropertyType("1")}
                 className="cursor-pointer"
               >
-                House
+                1 Bedroom
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => setPropertyType("Rent")}
+                onClick={() => setPropertyType("2")}
                 className="cursor-pointer"
               >
-                Rent
+                2 Bedroom
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
