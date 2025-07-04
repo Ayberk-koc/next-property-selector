@@ -21,8 +21,20 @@
   --color-customLightGray: #7e869e40;
 }
 
+@utility scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @utility text-3xl-semibold {
   @apply font-outfit font-semibold text-[64px];
+}
+
+@utility text-2.5xl-semibold {
+  @apply font-outfit font-semibold text-[40px];
 }
 
 @utility text-2xl-bold {
@@ -33,12 +45,12 @@
   @apply font-outfit text-[24px];
 }
 
-@utility text-xl-regular {
+@utility text-xl-bold {
   @apply font-outfit font-bold text-[24px];
 }
 
 @utility text-lg-bold {
-  @apply font-outfit text-[16px];
+  @apply font-outfit text-[16px] font-bold;
 }
 
 @utility text-md-bold {
